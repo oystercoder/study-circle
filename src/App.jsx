@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard'
 import Signin from './pages/Signin'
 import Signup from './pages/Signup'
 import Header from './components/Header'
+import Footer from './components/Footer'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,9 +26,11 @@ function App() {
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/dashboard" element={<Dashboard/>}/>
       <Route path="/projects" element={<Projects/>}/>
+    
 
       
     </Routes>
+    <Footer />
     </BrowserRouter>
      </>
   )
