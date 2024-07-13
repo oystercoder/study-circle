@@ -75,7 +75,7 @@ export const signin=async(req,res,next)=>{
                     // Remove sensitive data (password) from user object before sending
                     const { password, ...rest } = existingUser._doc;
               
-                    return res.status(200).json({ message: "User signed in successfully", user: rest });
+                    return res.status(200).json({...rest });
                   } else {
                     // User does not exist: create new user
                     const generatedPassword = bcryptjs.hashSync(Math.random().toString(36).slice(-8), 10);
@@ -97,7 +97,7 @@ export const signin=async(req,res,next)=>{
                     // Remove sensitive data (password) from user object before sending
                     const { password: newPassword, ...rest } = newUser._doc;
               
-                    return res.status(200).json({ message: "User signed in successfully", user: rest });
+                    return res.status(200).json({ ...rest });
                   }
                 } catch (error) {
                   // Handle errors
