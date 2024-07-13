@@ -59,5 +59,51 @@ export const signin=async(req,res,next)=>{
                 }
             }
 
+            export const google = async (req, res, next) => {
+                const { email, username, image } = req.body;
+              
+                try {
+                  // Check if user already exists
+                  let existingUser = await user.findOne({ email: email });
+              
+                  if (existingUser) {
+                    // User exists: generate JWT token, set cookie, and send user data
+                    const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET || "SECRET");
+              
+                    res.cookie("token", token, { httpOnly: true });
+              
+                    // Remove sensitive data (password) from user object before sending
+                    const { password, ...rest } = existingUser._doc;
+              
+                    return res.status(200).json({ message: "User signed in successfully", user: rest });
+                  } else {
+                    // User does not exist: create new user
+                    const generatedPassword = bcryptjs.hashSync(Math.random().toString(36).slice(-8), 10);
+              
+                    const newUser = new user({
+                      username:username.toLowerCase().split(' ').join('') + Math.random().toString(9).slice(-4),
+                      email: email,
+                      password: generatedPassword,
+                      photo: image,
+                    });
+              
+                    await newUser.save();
+              
+                    // Generate JWT token, set cookie, and send user data
+                    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET || "SECRET");
+              
+                    res.cookie("token", token, { httpOnly: true });
+              
+                    // Remove sensitive data (password) from user object before sending
+                    const { password: newPassword, ...rest } = newUser._doc;
+              
+                    return res.status(200).json({ message: "User signed in successfully", user: rest });
+                  }
+                } catch (error) {
+                  // Handle errors
+                  next(error);
+                }
+              };
+
     
 

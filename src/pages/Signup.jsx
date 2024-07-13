@@ -2,6 +2,7 @@ import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import Oath from '../components/Oath'
 
 const Signup = () => {
   const [formData,setformData]=useState({})
@@ -105,6 +106,7 @@ setloading(true)
     <span>Sign Up</span>
   )}
 </Button>
+<Oath />
 
 
            

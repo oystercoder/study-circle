@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { signInSuccess,signInStart } from '../redux/user/userSlice'
 import { useDispatch,useSelector } from 'react-redux'
 import { signInFailure } from '../redux/user/userSlice'
+import Oath from '../components/Oath'
 
 const Signin= () => {
   const dispatch=useDispatch()
@@ -98,6 +99,7 @@ const Signin= () => {
     <span>Sign In</span>
   )}
 </Button>
+<Oath />
 
 
            
