@@ -45,11 +45,14 @@ const Profile = () => {
                 (snapshot) => {
                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     setImageFileProgress(progress.toFixed(0));
+                    
                    
                 },
                 (error) => {
                     setImageError("Couldn't upload: the size of the file must be less than 2MB");
                     setImageFileProgress(null)
+                    setImageFile(null)
+                    setImageFileUrl(null)
                 
                    
                 },

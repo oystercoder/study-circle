@@ -20,13 +20,9 @@ export const signup=async(req,res,next)=>{
        {
         next(err);
        }
-
-   
- 
-
-
-}
+  }
 export const signin=async(req,res,next)=>{
+  console.log("entered the function!!!")
     const {email,password}=req.body;
     if(!email||!password||email===""||password==="")
     {
@@ -60,6 +56,9 @@ export const signin=async(req,res,next)=>{
             }
 
             export const google = async (req, res, next) => {
+             
+
+
                 const { email, username, image } = req.body;
               
                 try {
@@ -71,6 +70,7 @@ export const signin=async(req,res,next)=>{
                     const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET || "SECRET");
               
                     res.cookie("token", token, { httpOnly: true });
+                    res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
               
                     // Remove sensitive data (password) from user object before sending
                     const { password, ...rest } = existingUser._doc;

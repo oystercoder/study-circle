@@ -2,7 +2,9 @@ import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import userRoute from './routes/User_route.js'
-import auth from './routes/auth.js'
+import authiii from './routes/auth.js'
+import cookieParser from 'cookie-parser'
+import { verifyUser } from './utils/verifyUser.js'
 dotenv.config()
 
 mongoose.connect(process.env.MONGO).then(()=>{
@@ -16,19 +18,19 @@ app.listen(3023,()=>{
     console.log('server is running')
 })
 app.use('/api/user',userRoute)
-app.use('/api/auth',auth)
+app.use('/api/auth',authiii)
 
 
-app.use((err,req,res,next)=>
-{
-    const statusCode=err.statusCode||500
-    const message=err.message||"internal server error"
-    res.status(statusCode).json({
-        success:false,
-        statusCode,
-        message
+// app.use((err,req,res,next)=>
+// {
+//     const statusCode=err.statusCode||500
+//     const message=err.message||"internal server error"
+//     res.status(statusCode).json({
+//         success:false,
+//         statusCode,
+//         message
        
 
-    })
-})
+//     })
+// })
 
